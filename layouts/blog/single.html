@@ -8,8 +8,9 @@
                     {{ partial "page-heading" . }}
                 </div>
                 <div class="meta">
-                    <div class="date" title="{{ .Date.Format .Site.Params.dateformfull }}">{{ .Date.Format .Site.Params.dateform }}</div>
-                    <div class="reading-time"><div class="middot"></div>{{ if eq 1 .ReadingTime }}{{ .ReadingTime }} minute read{{ else }}{{ .ReadingTime }} minutes read{{ end }}</div>
+                    <div class="date" title="{{ .Date.Format .Site.Params.dateformfull }}">{{ if eq .Site.Params.lang "pt" }}{{ index ( index $.Site.Data.translations $.Site.LanguageCode ).Weekday ( int ( add ( int ( printf "%0d" .Date.Weekday ) ) 1 ) ) }}, {{ .Date.Day }} de {{ index ( index $.Site.Data.translations $.Site.LanguageCode ).Month ( int (printf "%0d" .Date.Month) ) }} de {{ .Date.Year }}{{else}}{{ .Date.Format .Site.Params.dateform }}{{end}}
+                    </div>
+                    <div class="reading-time"><div class="middot"></div>{{ if eq 1 .ReadingTime }}{{ .ReadingTime }} {{ ( index $.Site.Data.translations $.Site.LanguageCode ).ReadingTime }}{{ else }}{{ .ReadingTime }} {{ ( index $.Site.Data.translations $.Site.LanguageCode ).ReadingTimeS }}{{ end }}</div>
                 </div>
             </div>
             <div class="markdown">
@@ -19,7 +20,7 @@
                     {{ .Content }}
                 {{ end }}
                 <br>
-                <p><a href="{{ .Section }}">Back to posts</a></p>
+                <p><a href="{{ .Section }}">{{ ( index $.Site.Data.translations $.Site.LanguageCode ).Back }}</a></p>
             </div>
             <br>
             <div class="disqus">

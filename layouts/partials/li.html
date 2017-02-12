@@ -1,4 +1,4 @@
 <li class="post-item">
-    <span class="meta">{{ .Date.Format .Site.Params.dateform }}</span>
+    <span class="meta">{{ if eq .Section "blog" }}{{ if eq .Site.Params.lang "pt" }}{{ lower ( index (split ( index ( index $.Site.Data.translations $.Site.LanguageCode ).Weekday ( int ( add ( int ( printf "%0d" .Date.Weekday ) ) 1 ) ) ) "-" ) 0 ) }}, {{ .Date.Day }}{{ else }}{{ .Date.Format .Site.Params.weekform }}{{ end }}{{ else }}{{ if eq .Site.Params.lang "pt" }}{{ .Date.Format "2006-01-02" }}{{ else }}{{ .Date.Format .Site.Params.dateform }}{{ end }}{{ end }}</span>
     <a href="{{ .Permalink }}"><span>{{ .Title }}</span></a>
 </li>

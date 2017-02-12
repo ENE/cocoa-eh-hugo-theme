@@ -9,10 +9,13 @@
             {{ end }}
 
             <ul>
-            {{ range first 5 (.Data.Pages.GroupByDate "Jan, 2006" "desc")}}
+            {{ range first 5 (.Data.Pages.GroupByDate "2006|1" "desc")}}
+                {{ $year := int ( index (split .Key "|") 0 ) }}
+                {{ $month := int ( index (split .Key "|") 1 ) }}
+                {{ $month := index ( index $.Site.Data.translations $.Site.LanguageCode ).Month $month }}
                 {{ $nbPages := len (where .Pages "Section" "blog")}}
                 {{ if ne $nbPages 0}}
-                    <li class="groupby">{{ .Key }}</li>
+                    <li class="groupby">{{ $month }} de {{ $year }}</li>
                 {{ end }}
                 {{ range where .Pages.ByPublishDate "Section" "blog"}}
                     {{ partial "li.html" . }}
@@ -20,9 +23,9 @@
             {{ end }}
             </ul>
 
-            {{ $nbTotalGroup := len (.Data.Pages.GroupByDate "Jan, 2006" "desc")}}
+            {{ $nbTotalGroup := len (.Data.Pages.GroupByDate "2006|1" "desc")}}
             {{ if gt $nbTotalGroup 5}}
-                <a href="./blog/" class="see-more">See more ...</a>
+                <a href="./blog/" class="see-more">{{ ( index $.Site.Data.translations $.Site.LanguageCode ).SeeMore }}</a>
             {{ end }}
         </div>
     </div>

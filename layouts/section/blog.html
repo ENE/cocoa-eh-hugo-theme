@@ -2,10 +2,13 @@
 <section class="main">
     <div class="container">
         <div class="content">
-            <div class="page-heading">Blog</div>
+            <div class="page-heading">{{ ( index $.Site.Data.translations $.Site.LanguageCode ).BlogTitle }}</div>
             <ul>
-                {{ range .Data.Pages.GroupByDate "Jan, 2006" "desc"}}
-                    <li class="groupby">{{ .Key }}</li>
+                {{ range .Data.Pages.GroupByDate "2006|1" "desc"}}
+                    {{ $year := int ( index (split .Key "|") 0 ) }}
+                    {{ $month := int ( index (split .Key "|") 1 ) }}
+                    {{ $month := index ( index $.Site.Data.translations $.Site.LanguageCode ).Month $month }}
+                    <li class="groupby">{{ $month }} de {{ $year }}</li>
                     {{ range .Pages.ByPublishDate }}
                         {{ partial "li.html" . }}
                     {{ end }}
