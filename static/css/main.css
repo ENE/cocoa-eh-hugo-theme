@@ -781,3 +781,6 @@ section.main .content .markdown tbody tr:nth-child(odd) td,
 section.main .content .markdown tbody tr:nth-child(odd) th {
   background-color: #f7f7f7;
 }
+section.main .content .markdown div {
+  margin-bottom: 25px;
+}
